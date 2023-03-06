@@ -1,6 +1,6 @@
 window.addEventListener("load", (event) => {
 /////// INIT //////
-console.log("display.js loaded");
+
 //the row size CSS for boxes is NOT dynamic, so if you want to change these values you'll have to change that too
 var columns = 6; //determines the number of boxes on the screen, should be equal to word length
 var rows = 6; //determines the number of rows on screen
@@ -14,7 +14,8 @@ class Box {
     this.row = row;
     this.column = column;
     this.ID = ""+this.row+this.column;
-    this.toHtml = "<div class='box' id='box"+this.ID+"'></div>"
+    // the onkeydown funtion limits the range of possible inputs, the oninput function ensures that the input is capitalized
+    this.toHtml = "<input class='box' onkeydown='return /[a-zA-Z]/i.test(event.key)' oninput='let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);' id='box"+this.ID+"'></div>"
   }
 }
 
@@ -39,6 +40,16 @@ function addCharacter(boxID, string){
 function changeColor(boxID, color){
   $("#box"+boxID).css("background-color", "#"+color);
 }
+function processInput(){
+  if ((this.value.length) == 0){
+    	$(this).prev('.box').focus();
+    } else if (this.value.length == 1) {
+      $(this).next('.box').focus();
+    }
+  
+}
 //actual code 
-addBoxes();
+  addBoxes();
+  $(".box").keydown(processInput);
+  $(".box").oninput()
 });
