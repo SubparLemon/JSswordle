@@ -81,6 +81,7 @@ window.addEventListener("load", () => {
     let wordleWord = wordsUsed[Math.floor(Math.floor(Math.random()*wordsUsed.length))].toUpperCase();
     let userInput = "";
     let row = 0;
+    let darkMode = false;
     console.log(wordleWord);
     // checks when key pressed, filters input, and modifies userinput
     window.addEventListener("keydown", function (event) {
@@ -110,5 +111,27 @@ window.addEventListener("load", () => {
             }
         }
     };
+
+    document.getElementById('darkmode').onclick = function () {
+        console.log("changing color")
+        if (darkMode) {
+            $("body").css("background-color", "#ffffff");
+            $("button").css("background-color", "#383838");
+            $("p").css("color", "#000000");
+            $("h1").css("color", "#000000");
+            $("h2").css("color", "#000000");
+            $("h3").css("color", "#000000");
+            darkMode = false;
+        } else {
+            $("body").css("background-color", "#1e1e1e");
+            $("button").css("background-color", "#eaeaea");
+            $("button").css("color", "#000000");
+            $("p").css("color", "#ffffff");
+            $("h1").css("color", "#ffffff");
+            $("h2").css("color", "#ffffff");
+            $("h3").css("color", "#ffffff");
+            darkMode = true;
+        }
+    }
 });
 
